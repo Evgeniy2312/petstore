@@ -4,6 +4,7 @@ import com.example.swagger.entity.User;
 import com.example.swagger.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+
+@Transactional
 @RestController
 @Validated
 @RequestMapping("/user")
@@ -53,6 +56,8 @@ public class UserController {
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+
+    @Transactional(readOnly = true)
     @GetMapping("/getByUsername/{username}")
     public ResponseEntity<List<User>> getByUsername( @PathVariable @NotNull @NotEmpty @NotBlank String username){
         if(!userService.getByUsername(username).isEmpty()){
@@ -60,6 +65,7 @@ public class UserController {
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getAll(){
         if(!userService.getAll().isEmpty()){

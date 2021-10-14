@@ -1,21 +1,27 @@
 package com.example.swagger.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity(name = "orders")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private long id;
-    private long petId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Pet pet;
     private LocalDateTime shipDate;
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private boolean complete;
 

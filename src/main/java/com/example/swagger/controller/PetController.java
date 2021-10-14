@@ -5,6 +5,7 @@ import com.example.swagger.entity.Pet;
 import com.example.swagger.service.PetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+
+@Transactional
 @RestController
 @Validated
 @RequestMapping("/pet")
@@ -39,6 +42,7 @@ public class PetController {
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/getByStatus/{status}")
     public ResponseEntity<List<Pet>> getByStatus(@PathVariable @NotNull @NotBlank @NotEmpty String status){
         if(!petService.getPetsByStatus(status).isEmpty()){
@@ -46,6 +50,7 @@ public class PetController {
         }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/getById/{id}")
     public ResponseEntity<Pet> getById(@PathVariable long id){
         if(petService.getById(id).isPresent()){
@@ -60,6 +65,7 @@ public class PetController {
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/getAll")
     public ResponseEntity<List<Pet>> getAll(){
         if(!petService.getAll().isEmpty()){

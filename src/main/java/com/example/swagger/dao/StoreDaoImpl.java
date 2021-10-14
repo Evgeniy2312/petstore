@@ -26,7 +26,7 @@ public class StoreDaoImpl implements StoreDao {
 
     @Override
     public void addOrder(Order order) {
-        orders.add(new Order(order.getId(), order.getPetId(), LocalDateTime.now(), order.getOrderStatus(), order.isComplete()));
+        orders.add(order);
     }
 
     @Override
