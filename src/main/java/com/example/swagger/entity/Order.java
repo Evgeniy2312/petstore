@@ -11,6 +11,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "orders")
 public class Order {
 
@@ -36,5 +37,16 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", pet=" + pet +
+                ", shipDate=" + shipDate +
+                ", orderStatus=" + orderStatus +
+                ", complete=" + complete +
+                '}';
     }
 }

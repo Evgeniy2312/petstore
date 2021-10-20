@@ -12,6 +12,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "tags")
 public class Tag {
 
@@ -36,4 +37,13 @@ public class Tag {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
+
